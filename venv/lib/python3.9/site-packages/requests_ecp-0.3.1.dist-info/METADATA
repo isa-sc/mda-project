@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: requests-ecp
+Version: 0.3.1
+Summary: SAML/ECP authentication handler for python-requests
+Home-page: https://pypi.org/project/requests-ecp/
+Author: Duncan Macleod
+Author-email: duncan.macleod@ligo.org
+License: GPL-3.0-or-later
+Project-URL: Bug Tracker, https://github.com/duncanmmacleod/requests-ecp/issues
+Project-URL: Documentation, https://requests-ecp.readthedocs.io/
+Project-URL: Source Code, https://github.com/duncanmmacleod/requests-ecp/
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.5
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: lxml
+Requires-Dist: requests
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-argparse ; extra == 'docs'
+Requires-Dist: sphinx-automodapi ; extra == 'docs'
+Requires-Dist: sphinx-panels ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Provides-Extra: kerberos
+Requires-Dist: requests-gssapi (>=1.2.2) ; extra == 'kerberos'
+Provides-Extra: tests
+Requires-Dist: pytest (>=2.9.2) ; extra == 'tests'
+Requires-Dist: pytest-cov ; extra == 'tests'
+Requires-Dist: requests-mock (>=1.5.0) ; extra == 'tests'
+
+# `requests-ecp`
+
+A SAML/ECP authentication handler for python-requests.
+
+## Release status
+
+[![PyPI version](https://img.shields.io/pypi/v/requests-ecp.svg)](https://pypi.python.org/pypi/requests-ecp)
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/requests-ecp.svg)](https://anaconda.org/conda-forge/requests-ecp/)  
+[![DOI](https://zenodo.org/badge/238942798.svg)](https://zenodo.org/badge/latestdoi/238942798)
+[![License](https://img.shields.io/pypi/l/requests-ecp.svg)](https://choosealicense.com/licenses/gpl-3.0/)
+![Supported Python versions](https://img.shields.io/pypi/pyversions/requests-ecp.svg)
+
+## Development status
+
+[![Build status](https://github.com/duncanmmacleod/requests-ecp/actions/workflows/python.yml/badge.svg?branch=main)](https://github.com/duncanmmacleod/requests-ecp/actions/workflows/python.yml)
+[![Codecov](https://codecov.io/gh/duncanmmacleod/requests-ecp/branch/main/graph/badge.svg?token=PO7lRIPpTm)](https://codecov.io/gh/duncanmmacleod/requests-ecp)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9b10bd39e588fd5a34ab/maintainability)](https://codeclimate.com/github/duncanmmacleod/requests-ecp/maintainability)
+[![Documentation](https://readthedocs.org/projects/requests-ecp/badge/?version=latest)](https://requests-ecp.readthedocs.io/en/latest/?badge=latest)
+
+## Installation
+
+See https://requests-ecp.readthedocs.io/en/latest/#installation for installation instructions.
+
+## Basic usage
+
+Attach the `HTTPECPAuth` object to your [Requests](https://requests.readthedocs.io/)
+Session and the relevant authentication will happen whenever required.
+
+```python
+>>> from requests import Session
+>>> from requests_ecp import HTTPECPAuth
+>>> with Session() as sess:
+...     sess.auth = HTTPECPAuth("https://idp.university.ac.uk/idp/profile/SAML2/SOAP/ECP")
+...     sess.get("https://data.university.ac.uk/mydata.dat")
+```
