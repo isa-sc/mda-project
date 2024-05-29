@@ -55,6 +55,11 @@ class Link(Component):
         - prop_name (string; optional):
             Holds which property is loading."""
 
+    _children_props = []
+    _base_nodes = ["children"]
+    _namespace = "dash_core_components"
+    _type = "Link"
+
     @_explicitize_args
     def __init__(
         self,
@@ -80,8 +85,6 @@ class Link(Component):
             "id",
             "loading_state",
         ]
-        self._type = "Link"
-        self._namespace = "dash_core_components"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "children",
@@ -97,9 +100,11 @@ class Link(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args if k != "children"}
+
         for k in ["href"]:
             if k not in args:
                 raise TypeError("Required argument `" + k + "` was not specified.")
+
         super(Link, self).__init__(children=children, **args)

@@ -32,6 +32,11 @@ class Store(Component):
         the browser quit. session: window.sessionStorage, data is cleared
         once the browser quit."""
 
+    _children_props = []
+    _base_nodes = ["children"]
+    _namespace = "dash_core_components"
+    _type = "Store"
+
     @_explicitize_args
     def __init__(
         self,
@@ -49,8 +54,6 @@ class Store(Component):
             "modified_timestamp",
             "storage_type",
         ]
-        self._type = "Store"
-        self._namespace = "dash_core_components"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "id",
@@ -62,9 +65,11 @@ class Store(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != "children"}
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
+        args = {k: _locals[k] for k in _explicit_args}
+
         for k in ["id"]:
             if k not in args:
                 raise TypeError("Required argument `" + k + "` was not specified.")
+
         super(Store, self).__init__(**args)

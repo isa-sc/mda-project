@@ -76,15 +76,20 @@ class DataTable(Component):
         - filter_options (dict; optional):
             There are two `filter_options` props in the table. This is the
             column-level filter_options prop and there is also the
-            table-level `filter_options` prop. These props determine
-            whether the applicable filter relational operators will
-            default to `sensitive` or `insensitive` comparison. If the
-            column-level `filter_options` prop is set it overrides the
-            table-level `filter_options` prop for that column.
+            table-level `filter_options` prop. If the column-level
+            `filter_options` prop is set it overrides the table-level
+            `filter_options` prop for that column.
 
             `filter_options` is a dict with keys:
 
-            - case (a value equal to: 'sensitive', 'insensitive'; optional)
+            - case (a value equal to: 'sensitive', 'insensitive'; optional):
+                (default: 'sensitive') Determine whether the applicable
+                filter relational operators will default to `sensitive` or
+                `insensitive` comparison.
+
+            - placeholder_text (string; optional):
+                (default: 'filter data...') The filter cell placeholder
+                text.
 
         - format (dict; optional):
             The formatting applied to the column's data. This prop is
@@ -550,15 +555,19 @@ class DataTable(Component):
     - filter_options (dict; optional):
         There are two `filter_options` props in the table. This is the
         table-level filter_options prop and there is also the column-level
-        `filter_options` prop. These props determine whether the
-        applicable filter relational operators will default to `sensitive`
-        or `insensitive` comparison. If the column-level `filter_options`
-        prop is set it overrides the table-level `filter_options` prop for
-        that column.
+        `filter_options` prop. If the column-level `filter_options` prop
+        is set it overrides the table-level `filter_options` prop for that
+        column.
 
         `filter_options` is a dict with keys:
 
-        - case (a value equal to: 'sensitive', 'insensitive'; optional)
+        - case (a value equal to: 'sensitive', 'insensitive'; optional):
+            (default: 'sensitive') Determine whether the applicable filter
+            relational operators will default to `sensitive` or
+            `insensitive` comparison.
+
+        - placeholder_text (string; optional):
+            (default: 'filter data...') The filter cell placeholder text.
 
     - sort_action (a value equal to: 'custom', 'native', 'none'; default 'none'):
         The `sort_action` property enables data to be sorted on a
@@ -1119,6 +1128,11 @@ class DataTable(Component):
         kept after the browser quit. session: window.sessionStorage, data
         is cleared once the browser quit."""
 
+    _children_props = []
+    _base_nodes = ["children"]
+    _namespace = "dash_table"
+    _type = "DataTable"
+
     @_explicitize_args
     def __init__(
         self,
@@ -1280,8 +1294,6 @@ class DataTable(Component):
             "persisted_props",
             "persistence_type",
         ]
-        self._type = "DataTable"
-        self._namespace = "dash_table"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "data",
@@ -1365,9 +1377,7 @@ class DataTable(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != "children"}
-        for k in []:
-            if k not in args:
-                raise TypeError("Required argument `" + k + "` was not specified.")
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
+        args = {k: _locals[k] for k in _explicit_args}
+
         super(DataTable, self).__init__(**args)

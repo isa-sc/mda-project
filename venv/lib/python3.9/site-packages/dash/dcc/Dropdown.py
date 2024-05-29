@@ -27,8 +27,14 @@ class Dropdown(Component):
         - disabled (boolean; optional):
             If True, this option is disabled and cannot be selected.
 
-        - label (string | number; required):
+        - label (a list of or a singular dash component, string or number; required):
             The option's label.
+
+        - search (string; optional):
+            Optional search value for the option, to use if the label is a
+            component or provide a custom search value different from the
+            label. If no search value and the label is a component, the
+            `value` will be used for search.
 
         - title (string; optional):
             The HTML 'title' attribute for the option. Allows for
@@ -71,6 +77,9 @@ class Dropdown(Component):
     - optionHeight (number; default 35):
         height of each option. Can be increased when label lengths would
         wrap around.
+
+    - maxHeight (number; default 200):
+        height of the options dropdown.
 
     - style (dict; optional):
         Defines CSS styles which will override styles previously set.
@@ -117,6 +126,11 @@ class Dropdown(Component):
         kept after the browser quit. session: window.sessionStorage, data
         is cleared once the browser quit."""
 
+    _children_props = ["options[].label"]
+    _base_nodes = ["children"]
+    _namespace = "dash_core_components"
+    _type = "Dropdown"
+
     @_explicitize_args
     def __init__(
         self,
@@ -129,6 +143,7 @@ class Dropdown(Component):
         placeholder=Component.UNDEFINED,
         disabled=Component.UNDEFINED,
         optionHeight=Component.UNDEFINED,
+        maxHeight=Component.UNDEFINED,
         style=Component.UNDEFINED,
         className=Component.UNDEFINED,
         id=Component.UNDEFINED,
@@ -148,6 +163,7 @@ class Dropdown(Component):
             "placeholder",
             "disabled",
             "optionHeight",
+            "maxHeight",
             "style",
             "className",
             "id",
@@ -156,8 +172,6 @@ class Dropdown(Component):
             "persisted_props",
             "persistence_type",
         ]
-        self._type = "Dropdown"
-        self._namespace = "dash_core_components"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "options",
@@ -169,6 +183,7 @@ class Dropdown(Component):
             "placeholder",
             "disabled",
             "optionHeight",
+            "maxHeight",
             "style",
             "className",
             "id",
@@ -180,9 +195,7 @@ class Dropdown(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != "children"}
-        for k in []:
-            if k not in args:
-                raise TypeError("Required argument `" + k + "` was not specified.")
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
+        args = {k: _locals[k] for k in _explicit_args}
+
         super(Dropdown, self).__init__(**args)

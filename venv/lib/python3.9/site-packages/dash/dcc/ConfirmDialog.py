@@ -35,6 +35,11 @@ class ConfirmDialog(Component):
     - submit_n_clicks_timestamp (number; default -1):
         Last time the submit button was clicked."""
 
+    _children_props = []
+    _base_nodes = ["children"]
+    _namespace = "dash_core_components"
+    _type = "ConfirmDialog"
+
     @_explicitize_args
     def __init__(
         self,
@@ -56,8 +61,6 @@ class ConfirmDialog(Component):
             "submit_n_clicks",
             "submit_n_clicks_timestamp",
         ]
-        self._type = "ConfirmDialog"
-        self._namespace = "dash_core_components"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "id",
@@ -71,9 +74,7 @@ class ConfirmDialog(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
-        args = {k: _locals[k] for k in _explicit_args if k != "children"}
-        for k in []:
-            if k not in args:
-                raise TypeError("Required argument `" + k + "` was not specified.")
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
+        args = {k: _locals[k] for k in _explicit_args}
+
         super(ConfirmDialog, self).__init__(**args)

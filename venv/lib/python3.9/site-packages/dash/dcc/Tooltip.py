@@ -77,6 +77,11 @@ class Tooltip(Component):
         with higher values will be displayed on top of components with
         lower values."""
 
+    _children_props = []
+    _base_nodes = ["children"]
+    _namespace = "dash_core_components"
+    _type = "Tooltip"
+
     @_explicitize_args
     def __init__(
         self,
@@ -110,8 +115,6 @@ class Tooltip(Component):
             "targetable",
             "zindex",
         ]
-        self._type = "Tooltip"
-        self._namespace = "dash_core_components"
         self._valid_wildcard_attributes = []
         self.available_properties = [
             "children",
@@ -131,9 +134,7 @@ class Tooltip(Component):
         self.available_wildcard_properties = []
         _explicit_args = kwargs.pop("_explicit_args")
         _locals = locals()
-        _locals.update(kwargs)  # For wildcard attrs
+        _locals.update(kwargs)  # For wildcard attrs and excess named props
         args = {k: _locals[k] for k in _explicit_args if k != "children"}
-        for k in []:
-            if k not in args:
-                raise TypeError("Required argument `" + k + "` was not specified.")
+
         super(Tooltip, self).__init__(children=children, **args)
