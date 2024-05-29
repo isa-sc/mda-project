@@ -1,0 +1,75 @@
+Metadata-Version: 2.1
+Name: ciecplib
+Version: 0.8.0
+Summary: A python client for SAML/ECP authentication
+Home-page: https://pypi.org/project/ciecplib
+Author: Duncan Macleod
+Author-email: duncan.macleod@ligo.org
+License: GPL-3.0-or-later
+Project-URL: Bug Tracker, https://github.com/duncanmmacleod/ciecplib/issues
+Project-URL: Documentation, https://ciecplib.readthedocs.io/
+Project-URL: Source Code, https://github.com/duncanmmacleod/ciecplib/
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cryptography (>=36.0.0)
+Requires-Dist: requests
+Requires-Dist: requests-ecp
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-argparse ; extra == 'docs'
+Requires-Dist: sphinx-automodapi ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: sphinx-tabs ; extra == 'docs'
+Provides-Extra: kerberos
+Requires-Dist: gssapi ; extra == 'kerberos'
+Requires-Dist: requests-ecp[kerberos] ; extra == 'kerberos'
+Provides-Extra: manpages
+Requires-Dist: argparse-manpage ; extra == 'manpages'
+Provides-Extra: tests
+Requires-Dist: pytest (>=3.9.0) ; extra == 'tests'
+Requires-Dist: pytest-cov ; extra == 'tests'
+Requires-Dist: requests-mock ; extra == 'tests'
+
+# CI ECP for Python
+
+This python package provides a native Python client to access
+SAML/ECP-authenticated content over HTTP with
+[CILogon](https://cilogon.org).
+
+## Release status
+
+[![PyPI version](https://img.shields.io/pypi/v/ciecplib.svg)](https://pypi.python.org/pypi/ciecplib)
+[![Conda version](https://img.shields.io/conda/vn/conda-forge/ciecplib.svg)](https://anaconda.org/conda-forge/ciecplib/)  
+[![DOI](https://zenodo.org/badge/33156275.svg)](https://zenodo.org/badge/latestdoi/33156275)
+[![License](https://img.shields.io/pypi/l/ciecplib.svg)](https://choosealicense.com/licenses/gpl-3.0/)
+![Supported Python versions](https://img.shields.io/pypi/pyversions/ciecplib.svg)
+
+## Development status
+
+[![Build status](https://github.com/duncanmmacleod/ciecplib/actions/workflows/python.yml/badge.svg?branch=main)](https://github.com/duncanmmacleod/ciecplib/actions/workflows/python.yml)
+[![Codecov](https://img.shields.io/codecov/c/gh/duncanmmacleod/ciecplib?logo=codecov)](https://codecov.io/gh/duncanmmacleod/ciecplib)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9e777f5fe160d1e3e7b6/maintainability)](https://codeclimate.com/github/duncanmmacleod/ciecplib/maintainability)
+[![Documentation](https://readthedocs.org/projects/ciecplib/badge/?version=latest)](https://ciecplib.readthedocs.io/en/latest/?badge=latest)
+
+## Installation
+
+See https://ciecplib.readthedocs.io/en/latest/#installation for installation instructions.
+
+## Basic usage
+
+```python
+>>> from ciecplib import request
+>>> response = request('https://somewhere.org/mywebpage/')
+```

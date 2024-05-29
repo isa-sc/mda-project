@@ -1,0 +1,5 @@
+[console_scripts]
+ecp-cert-info = ciecplib.tool.ecp_cert_info:main
+ecp-curl = ciecplib.tool.ecp_curl:main
+ecp-get-cert = ciecplib.tool.ecp_get_cert:main
+ecp-get-cookie = ciecplib.tool.ecp_get_cookie:main

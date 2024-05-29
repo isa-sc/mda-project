@@ -1,0 +1,3 @@
+[console_scripts]
+dcc = dcc.__main__:dcc
+
