@@ -25,6 +25,7 @@ dash==2.17.0
 dash-core-components==2.0.0
 dash-html-components==2.0.0
 dash-table==5.0.0
+DateTime==5.5
 dcc==0.8.0
 debugpy==1.8.1
 decorator==5.1.1
@@ -143,4 +144,5 @@ Werkzeug==2.0.3
 widgetsnbextension==4.0.11
 xyzservices==2024.4.0
 zipp==3.19.0
+zope.interface==6.4.post2
 zstandard==0.22.0
